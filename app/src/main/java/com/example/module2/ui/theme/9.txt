@@ -1,0 +1,48 @@
+package com.example.modulik2
+
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
+import org.junit.Rule
+import org.junit.Test
+
+class WaterTrackerTest {
+
+    @get:Rule
+    val composeTestRule = createComposeRule()
+
+    @Test
+    fun testAddWaterButton() {
+        composeTestRule.setContent {
+            WaterTracker()
+        }
+
+        composeTestRule.onNodeWithText("+250 мл").assertIsDisplayed()
+        composeTestRule.onNodeWithText("0 мл").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("+250 мл").performClick()
+
+        composeTestRule.onNodeWithText("250 мл").assertIsDisplayed()
+    }
+
+    @Test
+    fun testCompleteDayButtonAndStreak() {
+        composeTestRule.setContent {
+            WaterTracker()
+        }
+
+        composeTestRule.onNodeWithText("Завершить день").assertIsDisplayed()
+        composeTestRule.onNodeWithText("0").assertIsDisplayed()
+
+        repeat(6) {
+            composeTestRule.onNodeWithText("+250 мл").performClick()
+        }
+        composeTestRule.onNodeWithText("1500 мл").assertIsDisplayed()
+
+        composeTestRule.onNodeWithText("Завершить день").performClick()
+
+        composeTestRule.onNodeWithText("0 мл").assertIsDisplayed()
+        composeTestRule.onNodeWithText("1").assertIsDisplayed()
+    }
+}

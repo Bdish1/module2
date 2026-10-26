@@ -1,0 +1,113 @@
+package com.example.modulik2
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.colorResource
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Task6Screen()
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Task6Screen() {
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(text = "Module 2 - Task 6") },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = Color(0xFF6200EE),
+                    titleContentColor = Color.White
+                )
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+        ) {
+            PartOneCircle()
+            Spacer(modifier = Modifier.height(20.dp))
+            PartTwoCircle()
+        }
+    }
+}
+
+@Composable
+fun PartOneCircle() {
+    Box(
+        modifier = Modifier
+            .size(width = 240.dp, height = 120.dp)
+            .background(Color.Black)
+            .padding(8.dp),
+        contentAlignment = Alignment.TopEnd
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.circle),
+            contentDescription = "Orange Circle",
+            modifier = Modifier.size(48.dp)
+        )
+    }
+}
+
+@Composable
+fun PartTwoCircle() {
+    Box(
+        modifier = Modifier
+            .size(width = 240.dp, height = 120.dp)
+            .background(Color.Blue),
+        contentAlignment = Alignment.Center
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.circle),
+            contentDescription = "Purple Stretched Circle",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds,
+            colorFilter = ColorFilter.tint(colorResource(id = R.color.purple_500))
+        )
+
+    }
+}
+
+
+@Preview(name = "Part 1 Preview", showBackground = true)
+@Composable
+fun PartOnePreview() {
+    PartOneCircle()
+}
+
+@Preview(name = "Part 2 Preview", showBackground = true)
+@Composable
+fun PartTwoPreview() {
+    PartTwoCircle()
+}
